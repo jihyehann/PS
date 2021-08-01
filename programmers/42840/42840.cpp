@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 vector<int> pattern1 = {1,2,3,4,5}; 
@@ -17,44 +18,10 @@ vector<int> eval(vector<int> answers){
         if(pattern3[i%10] == answers[i])  cnt3++;
     }    
 
-    if(cnt1 > cnt2){
-        if(cnt1 > cnt3) {
-            win.push_back(1);
-        }
-        else if(cnt1 < cnt3)  {
-            win.push_back(3);
-        }
-        else {
-            win.push_back(1);
-            win.push_back(3);
-        }
-    }
-    else if(cnt2 > cnt1){
-        if(cnt2 > cnt3) {
-            win.push_back(2);
-        }
-        else if(cnt2 < cnt3)  {
-            win.push_back(3);
-        }
-        else {
-            win.push_back(2);
-            win.push_back(3);
-        }
-    }
-    else {
-        if(cnt2 > cnt3) {
-            win.push_back(1);
-            win.push_back(2);
-        }
-        else if(cnt2 < cnt3)  {
-            win.push_back(3);
-        }
-        else {
-            win.push_back(1);
-            win.push_back(2);
-            win.push_back(3);
-        }
-    }
+    int maximum = max(cnt1, max(cnt2, cnt3));
+    if(maximum == cnt1) win.push_back(1);
+    if(maximum == cnt2) win.push_back(2);
+    if(maximum == cnt3) win.push_back(3);
     return win;
 }
 

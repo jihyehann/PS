@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 using namespace std;
 int n, mv[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
 bool visitTable[51][51] = {false};

@@ -9,7 +9,6 @@ public class Main {
     static char[][] map;
     static int[][] mv = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int[] rc = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -49,7 +48,7 @@ public class Main {
             Status now = q.peek();
             q.poll();
 
-            // 물 퍼짐
+            // 매분마다 물 퍼짐
             if (prevCnt < now.cnt) {
                 spreadWater(water);
             }
@@ -72,7 +71,7 @@ public class Main {
         return -1;
     }
 
-    private static void spreadWater(List<Pair> water) { // 물에 빠짐 여부
+    private static void spreadWater(List<Pair> water) {
         int waterSize = water.size();
         for (int i=0; i<waterSize; i++) {
             Pair w = water.get(i);

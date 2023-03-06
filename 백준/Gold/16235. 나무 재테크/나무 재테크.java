@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -24,6 +25,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         input();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                ground[i][j].treeAges.sort(Collections.reverseOrder());
+            }
+        }
         for (int i = 0; i < k; i++) {
             oneYear();
         }
@@ -76,13 +82,11 @@ public class Main {
             for (int j = 0; j < n; j++) {
                 // 봄
                 int die = 0;
-                ground[i][j].treeAges.sort(Integer::compareTo);
-                for (int k = 0; k < ground[i][j].treeAges.size(); k++) {
+                for (int k = ground[i][j].treeAges.size()-1; k >= 0; k--) {
                     int age = ground[i][j].treeAges.get(k);
                     if (ground[i][j].treeAges.get(k) > ground[i][j].food) {
                         die += (age/2);
                         ground[i][j].treeAges.remove(k);
-                        k--;
                     } else {
                         ground[i][j].food -= age;
                         ground[i][j].treeAges.set(k, age+1);

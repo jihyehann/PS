@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
     static int[][] matrix;
     public int[] solution(int rows, int columns, int[][] queries) {
@@ -23,9 +21,7 @@ class Solution {
         int y2 = query[3];
 
         int now = matrix[x1][y1];
-        matrix[x1][y1] = matrix[x1+1][y1];
-        int minNum = matrix[x1+1][y1];
-
+        int minNum = now;
         // 위
         for (int j = y1; j < y2; j++) {
             int next = matrix[x1][j+1];
@@ -48,7 +44,7 @@ class Solution {
             now = next;
         }
         // 왼쪽
-        for (int i = x2-1; i > x1; i--) {
+        for (int i = x2-1; i >= x1; i--) {
             int next = matrix[i][y1];
             matrix[i][y1] = now;
             minNum = Math.min(minNum, now);

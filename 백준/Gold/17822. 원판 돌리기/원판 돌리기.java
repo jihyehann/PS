@@ -27,13 +27,16 @@ public class Main {
             int d = parseInt(t[1]); // 방향
             int k = parseInt(t[2]); // 칸
             rotate(x,d,k);
-            
+
             boolean[][] visit = new boolean[N + 1][M];
             boolean exist = false;
             for (int j=1; j<=N; j++) {
                 for (int l=0; l<M; l++) {
                     if (!visit[j][l] && circles[j][l] != 0) {
-                        exist = exist | findSameNumber(j, l, visit);
+                        if (findSameNumber(j, l, visit)) {
+                            circles[j][l] = 0;
+                            exist = true;
+                        }
                     }
                 }
             }
@@ -90,9 +93,6 @@ public class Main {
                 same = true;
             }
         }
-        if (same) {
-            circles[x][y] = 0;
-        }
         return same;
     }
 
@@ -100,6 +100,7 @@ public class Main {
         int[] sumAndCnt = getSumAndCnt();
         int sum = sumAndCnt[0];
         int cnt = sumAndCnt[1];
+
         if (cnt == 0) return;
 
         int avg = sum / cnt;

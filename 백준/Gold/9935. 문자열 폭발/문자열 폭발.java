@@ -1,42 +1,36 @@
-import java.io.*;
-import java.util.Stack;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    static final String END = "FRULA";
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String input = br.readLine();
-        String pattern = br.readLine();
-        Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == pattern.charAt(pattern.length()-1)) {
+        char[] input = br.readLine().toCharArray();
+        char[] pattern = br.readLine().toCharArray();
+        int inputLength = input.length;
+        int top = 0;
+        int index = 0;
+        while (index < inputLength) {
+            input[top++] = input[index++];
+            if (top >= pattern.length) {
                 boolean find = true;
-                for (int j = 2; j <= pattern.length(); j++) {
-                    if (stack.size()+1 < pattern.length() || pattern.charAt(pattern.length()-j) != stack.get(stack.size()-j+1)) {
+                for (int i = 1; i <= pattern.length; i++) {
+                    if (input[top-i] != pattern[pattern.length-i]) {
                         find = false;
                         break;
                     }
                 }
                 if (find) {
-                    for (int j = 0; j < pattern.length()-1; j++) {
-                        stack.pop();
-                    }
-                } else {
-                    stack.add(input.charAt(i));
+                    top -= pattern.length;
                 }
-            } else {
-                stack.add(input.charAt(i));
             }
         }
 
-        StringBuilder answer = new StringBuilder();
-        if (stack.isEmpty()) {
-            System.out.println(END);
+        if (top == 0) {
+            System.out.println("FRULA");
         } else {
-            while (!stack.isEmpty()) {
-                answer.append(stack.pop());
-            }
-            System.out.println(answer.reverse());
+            System.out.println(new String(input, 0, top));
         }
+
     }
 }

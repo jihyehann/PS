@@ -4,11 +4,9 @@ import java.util.Map;
 class Solution {
     public int solution(String str1, String str2) {
         Map<String, AB> ab = new HashMap<>();
-        int cnt = 0;
         for (int i=0; i<str1.length()-1; i++) {
             if (!isAlpha(str1.charAt(i)) || !isAlpha(str1.charAt(i+1))) continue;
             String str = str1.substring(i, i+2).toLowerCase();
-            cnt++;
             if (ab.containsKey(str)) {
                 ab.get(str).a++;
             } else {
@@ -18,14 +16,13 @@ class Solution {
         for (int i=0; i<str2.length()-1; i++) {
             if (!isAlpha(str2.charAt(i)) || !isAlpha(str2.charAt(i+1))) continue;
             String str = str2.substring(i, i+2).toLowerCase();
-            cnt++;
             if (ab.containsKey(str)) {
                 ab.get(str).b++;
             } else {
                 ab.put(str, new AB(0, 1));
             }
         }
-        if (cnt == 0) return 65536;
+        if (ab.size() == 0) return 65536;
 
         int union = 0;
         int intersection = 0;

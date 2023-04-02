@@ -2,7 +2,6 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] priorities, int location) {
-        List<Integer> print = new ArrayList<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         for (int i=0; i<priorities.length; i++) {
             pq.add(priorities[i]);

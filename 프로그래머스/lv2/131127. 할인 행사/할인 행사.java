@@ -5,28 +5,22 @@ class Solution {
     
     public int solution(String[] want, int[] number, String[] discount) {
         int answer = 0;
-        for (int i=0; i<=discount.length-10; i++) {
-            p.clear();
-            for (int j=0; j<want.length; j++) {
-                p.put(want[j], number[j]);
-            }
-            if (dfs(i, i+9, discount)) answer++;
+        for (int i=0; i<10; i++) {
+            p.put(discount[i], p.getOrDefault(discount[i], 0)+1);
+        }
+        if (check(want, number)) answer++;
+        for (int i=10; i<discount.length; i++) {
+            p.put(discount[i-10], p.getOrDefault(discount[i-10], 0)-1);
+            p.put(discount[i], p.getOrDefault(discount[i], 0)+1);
+            if (check(want, number)) answer++;
         }
         return answer;
     }
     
-    boolean dfs(int now, int end, String[] discount) {
-        if (now > end) {
-            return p.isEmpty();
+    boolean check(String[] want, int[] number) {
+        for (int i=0; i<want.length; i++) {
+            if (p.getOrDefault(want[i], 0) < number[i]) return false;
         }
-        if (p.containsKey(discount[now])) {
-            if (p.get(discount[now]) > 1) {
-                p.put(discount[now], p.get(discount[now])-1);
-            } else {
-                p.remove(discount[now]);
-            }
-            return dfs(now+1, end, discount);
-        } 
-        return false;
+        return true;
     }
 }

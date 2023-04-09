@@ -1,27 +1,22 @@
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.stream.Collectors;
+import java.util.*;
 
 class Solution {
     public int solution(int[] scoville, int K) {
-        PriorityQueue<Integer> pq = Arrays.stream(scoville).boxed()
-                .collect(Collectors.toCollection(PriorityQueue::new));
-        int cnt = 0;
-        while (pq.size() > 1) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int s : scoville) {
+            pq.add(s);
+        }
+        int answer = 0;
+        while (pq.size() >= 2) {
             if (pq.peek() >= K) {
-                return cnt;
+                break;
             }
-            cnt++;
-            int first = pq.poll();
-            int second = pq.poll();
-            int mix = first + second*2;
-            pq.add(mix);
+            answer++;
+            int first = pq.remove();
+            int second = pq.remove();
+            pq.add(first + second*2);
         }
-
-        if (pq.size() == 1 && pq.peek() >= K) {
-            return cnt;
-        }
-        return -1;
+        if (pq.peek() < K) return -1;
+        return answer;
     }
 }
-        
